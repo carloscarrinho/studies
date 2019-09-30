@@ -176,3 +176,58 @@ document.write(n1.toFixed(2).replace('.',','))
 
 document.write(n1.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'}))
 ```
+
+### Operadores
+
+O JavaScript possui várias famílias de operadores, as mais comuns são:
+
+- Aritméticos;
+- Atribuição;
+- Incremento;
+- Relacionais;
+- Lógicos;
+- Ternários.
+
+#### Operadores Aritméticos
+
+São aqueles associados às operações matemáticas básicas: soma, subtração, divisão, etc.
+
+O mais relevante de ser dito neste ponto é o uso dos operadores:
+
+- 5 % 2 = 1 (o operador '%' retorna o valor do resto de uma divisão, isto é, 5 divido por 2 dá 2 com resto 1)
+- 5 ** 2 = 25 (o operador ** representa uma potência)
+
+No uso dos operadores é muito importante atentar para a precedência matemática entre eles.
+
+#### Operadores de Atribuição
+
+O operador de atribuição é o '=' e lê-se 'recebe'.
+
+```javascript
+var n = 3 // n recebe 3, essa é a chamada 'atribuição simples'
+
+n = n + 5 // agora, o n que valia três, foi somado com cinco, passando a valer 8. Essa é a chamada 'auto-atribuição'
+n += 5 // essa expressão signigica o mesmo da de cima, podemos utilizá-la quanto temos uma variável realizando uma operação com ela mesma.
+```
+
+#### Operadores de Incremento
+
+É muito comum na programação que precisemos fazer, por exemplo:
+
+```javascript
+var x = 5
+
+x = x + 1
+```
+
+Quando isso acontece, podemos utilizar a sintaxe x++, isso quer dizer a mesma coisa do anterior, porém de uma forma mais resumida. Ficamos então com:
+
+```javascript
+var x = 5 // x recebe 5
+
+x++ // x igual a x mais 1
+
+// da mesma forma para subtração
+
+x-- // x igual a x menos 1
+```
