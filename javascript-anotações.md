@@ -9,18 +9,15 @@ Os comentários em JavaScript podem ser realizados de duas formas:
 - com duas barras para comentar um trecho com apenas uma linha;
 - com barra asterisco asterisco barra para comentar um trecho com mais de uma linha.
 
-
 ```javascript
 	// em uma linha
 
 	/*
-	comentários em 
-	mais de 
+	comentários em
+	mais de
 	uma linha
 	*/
 ```
-
-
 
 ### Variáveis e Tipos Primitivos
 
@@ -34,7 +31,7 @@ Para definir uma variável deve-se colocar 'var' (ou 'let' ou 'const'), o sinal 
 ```javascript
 	var nome = 'Carlos' //definimos uma variável chamada 'nome' que recebeu um valor do tipo 'string'
 
-	var n1 = 54 // definimos uma variável chamada 'n1' que recebeu um valor do tipo 'number' 
+	var n1 = 54 // definimos uma variável chamada 'n1' que recebeu um valor do tipo 'number'
 
 ```
 
@@ -50,15 +47,14 @@ As variáveis são extremamente importantes para o desenvolvimento de qualquer s
 
 Existem algumas regras para a definição do nome de uma variável, são elas:
 
-- Podem começar com '$' ou '_'
-- Não podem começar com números 
+- Podem começar com '$' ou _
+- Não podem começar com números
 - É possível usar letras com números
 - É possível usar acentos e símbolos
 - Não podem conter espaços
 - Não podem usar palavras reservadas da linguagem verificar lista de palavras reservadas em: []
 
 Alguns pontos de atenção e dicas para definição de um bom nome de variável:
-
 1. Letras maiúsculas e minúsculas fazem diferença - a variável 'a' é diferente da variável 'A';
 
 2. Tente escolher nomes coerentes para as variáveis - deve-se evitar usar n1, n2, n3 ou x, y, z, etc. Se a variável guarda o nome de alguem, defina como 'nome', se é o telefone, defina 'telefone', se é o endereço, por que não definir como 'endereco'? Enfim, use identificadores coerentes;
@@ -68,7 +64,6 @@ Alguns pontos de atenção e dicas para definição de um bom nome de variável:
 Como dito anteriormente, as variáveis podem receber vários tipos de dados e o entendimento do tipo é importante, pois eles interferem na forma como a linguagem interpreta os comandos.
 
 Os tipos são:
-
 - number: 1, 7, 45, -15, 7.7, .9 (Esse tipo possui ainda dois 'tipos internos' o 'Infinity' e ou 'NaN' (que significa Not a Number));
 - string: 'Carlos', 'Emili', 'Digite seu texto aqui'
 - Boolean:
@@ -79,7 +74,7 @@ Os tipos são:
 
 Para saber o tipo de uma determinada variável, pode-se usar o comando 'typeof' no console:
 
-```console 
+```console
 	> var nome = 'Emili'
 	> typeof nome
 	> 'string'
@@ -100,18 +95,15 @@ var nota = Number(window.prompt('Qual a sua nota em matemática?')) // recurso r
 
 ```
 
-
 de Number para String
 
 ```javascript
 
 var idade = 28
 
-idade = String(idade) 
-
+idade = String(idade)
 // ou
-
-idade = idade.toString 
+idade = idade.toString
 
 ```
 
@@ -149,7 +141,7 @@ document.write(`A nota de ${nome}, que possui ${idade} anos, é de ${nota}`) // 
 var nome = window.prompt('Qual o seu nome?')
 document.write('Seu nome tem ${nome.length} letras.')
 document.writeln('Seu nome em maiúsculas é ${nome.toUpperCase}.') // o comando 'document.writeln' imprime o texto na linha seguinte
-document.writeln('Seu nome em minúsculas é ${nome.toLowerCase}.') 
+document.writeln('Seu nome em minúsculas é ${nome.toLowerCase}.')
 
 ```
 
@@ -159,7 +151,7 @@ Para formatar números contidos em variáveis, podemos utilizar as funcionalidad
 
 - to.Fixed(): define uma quantidade de casas decimais
 - .replace: permite trocar, por exemplo, o ponto (.) utilizado pelo formato americano para a vírgula (,) em números decimais
-- .toLocaleString: permite apresentar também o tipo de moeda 
+- .toLocaleString: permite apresentar também o tipo de moeda
 
 ```javascript
 var n1 = 1547.8745
@@ -187,6 +179,8 @@ O JavaScript possui várias famílias de operadores, as mais comuns são:
 - Relacionais;
 - Lógicos;
 - Ternários.
+
+Obs: observe que quando tivermos um código com a presença de vários tipos de operadores, a precedência ocorre com base na sequência que estão sendo apresentados esses conceitos, isto é: Aritméticos --> Atribuição --> Relacionais --> Lógicos --> Ternários.
 
 #### Operadores Aritméticos
 
@@ -230,4 +224,41 @@ x++ // x igual a x mais 1
 // da mesma forma para subtração
 
 x-- // x igual a x menos 1
+```
+
+#### Operadores Relacionais
+
+'<' menor
+'>' maior
+'>=' maior ou igual
+'<=' menor ou igual
+'==' igual
+'!=' desigual ou diferente
+'===' idêntico
+
+#### Operadores Lógicos
+
+'!' negação
+'&&' conjunção (e)
+'||' disjunção (ou)
+
+```javascript
+idade >= 15 && idade <= 17 // A idade está entre 15 e 17 anos?
+estado == 'RJ' || estado == 'SP' // O estado é RJ ou é SP?
+salario == 1500 && sexo != 'M' // É uma mulher que ganha mais de 1500?
+```
+
+#### Operadores Ternários
+
+'?' teste de uma condição
+':' separador das respostas do teste
+
+Daí funciona assim: 'teste?true:false'
+
+```console
+> var media = 5.5
+undefined
+> media > 7?'APROVADO':'REPROVADO'
+> 'REPROVADO'
+
 ```
