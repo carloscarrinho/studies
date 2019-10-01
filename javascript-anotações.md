@@ -260,5 +260,71 @@ Daí funciona assim: 'teste?true:false'
 undefined
 > media > 7?'APROVADO':'REPROVADO'
 > 'REPROVADO'
+```
 
+### Entendendo o Document Object Model (DOM)
+
+#### Introdução ao DOM
+DOM é um conjunto de objetos dentro do navegador que vai dar acesso aos componentes internos do website.
+
+A 'Árvore DOM' representa a árvore hierárquica dos elementos constantes no documento html. Nesta árvore, o 'window' é o elemento pai (parent) principal, isto é, todos os demais elementos (child) estão dentro dele.
+
+Por padrão, é possível selecionar os elementos no DOM por meio de:
+- TagName: .getElementByTag() ou .getElementsByTag()[] - perceba neste caso que quando tem mais de um elemento deve-se indicar qual deles se deseja buscar entre colchetes;
+- Id - .getElementById();
+- Name - .getElementByName();
+- Class - .getElementByClass();
+
+Porém, o mais recomendado (e comum) é utilizar seletores CSS para buscar o elemento, através dos comandos '.querySelector()' e '.querySelectorAll()'. O único problema é que este recurso é mais recente, então em navegadores antigos pode quebrar.
+
+#### Eventos DOM
+Eventos são tipos de interações possíveis do usuário com o conteúdo da página.
+
+Há uma lista super extensa de eventos possíveis, é valido acessar a página de referência do MDN: https://developer.mozilla.org/en-US/docs/Web/Events
+
+Para utilizar os eventos na prática, é necessário que aliar um evento a uma função, isto é, a ação que deve ser executada a partir do disparo do evento, como por exemplo um clique em um botão, ou um input de dados em um formulário ou ainda a movimentação do cursor do mouse sobre algum elemento.
+
+```html
+<body>
+	<!-- utilizando o evento de clique por meio do html, mas também é possível (e recomendado) fazer pelo JavaScript -->
+	<div id="area" onclick="clicar()" onmouseenter="entrar()" onmouseout="sair()">
+		Interaja...
+	</div>
+
+	<script>
+		//buscando elementos utilizando a estrutura da árvore DOM: window --> document --> elemento
+		var area = window.document.getElementById('area');
+
+		//definindo quais ações deseja executar dentro de funções
+		function clicar() {
+			a.innerText = 'Clicou';
+			a.style.backgroud = 'red';
+		}
+		function entrar() {
+			a.innerText = 'Entrou';
+		}
+		function sair() {
+			a.innerText = 'Saiu';
+		}
+	</script>
+</body>
+```
+
+Também é possível chegar ao mesmo resultado utilizando 'escutadores' (comando 'addEventListener') por meio do JavaScript.
+
+```html
+<body>
+	<div>
+		Interaja...
+	</div>
+
+	<script>
+		var area = window.document.getElementById('area');
+
+		//adicionando interação apenas por meio do JavaScript
+		a.addEventListener('click', clicar);
+		a.addEventListener('onmouseenter', entrar);
+		a.addEventListener('onmouseout', sair);
+	</script>
+</body>
 ```
