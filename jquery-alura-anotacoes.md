@@ -91,3 +91,87 @@ $('textarea').attr('disabled', true);
 $():
 
 .click(): atalho para a função .on("click", ...) . Ela tem o mesmo comportamento, apenas sendo um jeito mais curto e rápido de escrever a função.
+
+#### Trabalhando com Estilos
+Por meio do JavaScript / jQuery podemos modificar o estilo de determinados elementos. Um recurso básico que permite esse tipo de modificação é o comando .css() do jQuery.
+
+```javascript
+//mudando o background-color do elemento com a class 'campo-digitação' por meio do JavaScript
+var campo = $('.campo-digitacao');
+campo.css('background-color', 'lightgray');
+```
+
+Também é possivel recuperar mais de um valor passando um array de propriedades, por exemplo:
+
+```javascript
+var valores = $("div").css(["background-color","width"]);
+```
+
+Contudo, é uma boa prática que tudo referente aos estilos fique a cargo do CSS. Colocando as propriedades dentro do código JavaScript estamos violando a separação de responsabilidades. HTML é a estrutura da página, JavaScript a parte dinâmica e o CSS define o estilo. Boa prática então é definir os estilos previamente no CSS e usar apenas as classes no JavaScript.
+
+Sendo assim, o comando .addClass() nos ajuda na tarefa de criar uma classe por meio do JavaScript que podemos estilizar por meio do CSS.
+
+O código acima ficaria:
+
+```html
+<head>
+  <style>
+    /* class criada no JavaScript e estilizada aqui no CSS*/
+    .campo-desativado {
+      background-color: lightgray;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    var campo = $('.campo-digitacao');
+    //estamos aqui adicionando a class 'campo-desativado' estilizada na folha CSS
+    campo.addClass('campo-desativado')
+  </script>
+</body>
+```
+
+Assim como existe o .addClass() para adicionar uma classe a um elemento, existe também o .removeClass() que faz o inverso.
+
+Essa situação de adicionar e remover classes é muito comum no dia a dia de codificação. E com isso, temos toda vez que adicionarmos uma classe, saber se é necessário remove-la novamente em outro momento.
+
+Para facilitar a manutenção do código, no jQuery existe um outro comando que adiciona ou remove uma classe, o .toggleClass(). Com ele, podemos inserir ou retirar uma classe dependendo do contexto no qual ele foi inserido.
+
+Imaginemos a mesma situação de pintar o background de um campo quando ele é desativado, como no exemplo anterior. Quando quisermos despintar, podemos fazer:
+
+```javascript
+var campo = $('.campo-digitacao');
+
+function colorirFundo() {
+  campo.toggleClass('campo-desativado');
+}
+
+function descolorirFundo() {
+  campo.toggleClass('campo-desativado');
+}
+//perceba que neste caso teríamos que fazer .addClass()
+//no primeiro caso e .removeClass( ) no segundo
+```
+
+#### Outras Funções
+
+- .substr(a,b): lê-se 'sub string' e é um recurso que permite pegar um pedaço de uma string. O parâmetro 'a' representa em qual caractere inicia o 'corte' e o parâmetro 'b' representa o caractere final.
+
+```javascript
+campo.on("input", function() {
+  var digitado = campo.val();
+
+  //selecionando um pedaco da frase com base no quanto já foi digitado
+  //string.substr(parâmetro de início, parâmetro de fim)
+  var comparavel = frase.substr(0 , digitado.length);
+
+  if(digitado == comparavel) {
+      campo.addClass("borda-verde");
+      campo.removeClass("borda-vermelha");
+  } else {
+      campo.addClass("borda-vermelha");
+      campo.removeClass("borda-verde");
+  }
+})
+```
