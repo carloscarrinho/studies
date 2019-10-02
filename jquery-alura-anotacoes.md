@@ -38,7 +38,7 @@ var idade = $('#idade').text() // define a variável 'idade' como o valor do ele
 
 - .text(): serve para buscar o texto de um elemento no documento quando o parênteses for vazio, ou para modificar o texto de um elemento quando é passado algum parâmetro dentro do parênteses. É muito importante não esquecer do parênteses ao final do comando;
 
-- .val(): altera os valores dos campos de input, então se queremos preencher um <input type="text"> com um valor específico, é ela quem vamos usar.
+- .val(): altera os valores dos campos de input, então se queremos preencher um ```<input type="text">``` com um valor específico, é ela quem vamos usar.
 
 - .on(): recebe como parâmetro dois argumentos, o primeiro sendo uma string com o nome do evento que ela vai passar a escutar e o segundo uma função, com a ação que ela deve executar quando o evento acontecer. O nome do evento são os nomes do eventos comuns do Javascript, como de 'click', 'input', 'focus', 'dblclick' entre outros.
 
@@ -54,7 +54,7 @@ campoDigitacao.on('input', function(){
 })
 ```
 
-- one(): funciona de modo semelhante a função .on(), ambas podem ser utilizadas em qualquer elemento, recebem qualquer evento como primeiro parâmetro e uma função anônima ou uma função nomeada como segundo parâmetro. A diferença entre elas é na hora de escutar os eventos, a função .one() escuta o evento apenas uma única vez, diferentemente da função on(), que fica escutando o evento em um elemento do HTML por tempo ilimitado.
+- one(): funciona de modo semelhante a função ```.on()```, ambas podem ser utilizadas em qualquer elemento, recebem qualquer evento como primeiro parâmetro e uma função anônima ou uma função nomeada como segundo parâmetro. A diferença entre elas é na hora de escutar os eventos, a função ```.one()``` escuta o evento apenas uma única vez, diferentemente da função ```.on()```, que fica escutando o evento em um elemento do HTML por tempo ilimitado.
 
 ```javascript
 //contando o tempo de digitação quando o usuário ativar o textarea
@@ -90,10 +90,10 @@ $('textarea').attr('disabled', true);
 
 $():
 
-.click(): atalho para a função .on("click", ...) . Ela tem o mesmo comportamento, apenas sendo um jeito mais curto e rápido de escrever a função.
+.click(): atalho para a função ```.on("click", ...)``` . Ela tem o mesmo comportamento, apenas sendo um jeito mais curto e rápido de escrever a função.
 
 #### Trabalhando com Estilos
-Por meio do JavaScript / jQuery podemos modificar o estilo de determinados elementos. Um recurso básico que permite esse tipo de modificação é o comando .css() do jQuery.
+Por meio do JavaScript / jQuery podemos modificar o estilo de determinados elementos. Um recurso básico que permite esse tipo de modificação é o comando ```.css()``` do jQuery.
 
 ```javascript
 //mudando o background-color do elemento com a class 'campo-digitação' por meio do JavaScript
@@ -109,7 +109,7 @@ var valores = $("div").css(["background-color","width"]);
 
 Contudo, é uma boa prática que tudo referente aos estilos fique a cargo do CSS. Colocando as propriedades dentro do código JavaScript estamos violando a separação de responsabilidades. HTML é a estrutura da página, JavaScript a parte dinâmica e o CSS define o estilo. Boa prática então é definir os estilos previamente no CSS e usar apenas as classes no JavaScript.
 
-Sendo assim, o comando .addClass() nos ajuda na tarefa de criar uma classe por meio do JavaScript que podemos estilizar por meio do CSS.
+Sendo assim, o comando ```.addClass()``` nos ajuda na tarefa de criar uma classe por meio do JavaScript que podemos estilizar por meio do CSS.
 
 O código acima ficaria:
 
@@ -132,11 +132,11 @@ O código acima ficaria:
 </body>
 ```
 
-Assim como existe o .addClass() para adicionar uma classe a um elemento, existe também o .removeClass() que faz o inverso.
+Assim como existe o ```.addClass()``` para adicionar uma classe a um elemento, existe também o .removeClass() que faz o inverso.
 
 Essa situação de adicionar e remover classes é muito comum no dia a dia de codificação. E com isso, temos toda vez que adicionarmos uma classe, saber se é necessário remove-la novamente em outro momento.
 
-Para facilitar a manutenção do código, no jQuery existe um outro comando que adiciona ou remove uma classe, o .toggleClass(). Com ele, podemos inserir ou retirar uma classe dependendo do contexto no qual ele foi inserido.
+Para facilitar a manutenção do código, no jQuery existe um outro comando que adiciona ou remove uma classe, o ```.toggleClass().``` Com ele, podemos inserir ou retirar uma classe dependendo do contexto no qual ele foi inserido.
 
 Imaginemos a mesma situação de pintar o background de um campo quando ele é desativado, como no exemplo anterior. Quando quisermos despintar, podemos fazer:
 
@@ -153,7 +153,7 @@ function descolorirFundo() {
 //perceba que neste caso teríamos que fazer .addClass()
 //no primeiro caso e .removeClass( ) no segundo
 ```
-Essa função toggleClass também pode receber um segundo parâmetro que define se quisermos adicionar ou remover a classe:
+Essa função ```.toggleClass()``` também pode receber um segundo parâmetro que define se quisermos adicionar ou remover a classe:
 
 ```javascript
 campo.toggleClass('campo-desativado', true) // sempre adiciona
@@ -195,4 +195,25 @@ campo.on('input', function () {
   }
 })
 ```
-A função startsWith devolve ```true``` ou ```false```, se a frase começa com o valor digitado ou não.
+A função ```.startsWith()``` devolve ```true``` ou ```false```, se a frase começa com o valor digitado ou não.
+
+- .find(): Busca um determinado elemento filho dentro do pai indicado.
+
+- .parent(): Busca o pai de um determinado elemento indicado.
+
+- .append(): Cria um elemento HTML dentro de outro.
+
+- $(this): Dentro de um evento do Javascript e do jQuery, a palavra reservada ```this``` sempre se refere ao elemento que sofreu o evento. Para converter um objeto tradicional do Javascript em um objeto jQuery, devemos fazer uso da função jQuery, passando o ```this``` dentro do cifrão ```$```
+
+```javascript
+$('#descricao').click(function() {
+    $(this).text();
+    //estamos selecionando o texto de um determinado elemento
+    //com o id 'descrição' a partir de um evento de clique
+});
+```
+- .remove()
+
+- .hide()
+
+Para mais profundidade no jQuery, siga para o módulo 2.
