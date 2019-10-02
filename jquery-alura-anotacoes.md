@@ -153,9 +153,14 @@ function descolorirFundo() {
 //perceba que neste caso teríamos que fazer .addClass()
 //no primeiro caso e .removeClass( ) no segundo
 ```
+Essa função toggleClass também pode receber um segundo parâmetro que define se quisermos adicionar ou remover a classe:
+
+```javascript
+campo.toggleClass('campo-desativado', true) // sempre adiciona
+```
+
 
 #### Outras Funções
-
 - .substr(a,b): lê-se 'sub string' e é um recurso que permite pegar um pedaço de uma string. O parâmetro 'a' representa em qual caractere inicia o 'corte' e o parâmetro 'b' representa o caractere final.
 
 ```javascript
@@ -175,3 +180,19 @@ campo.on("input", function() {
   }
 })
 ```
+Como o JavaScript está evoluindo e melhorando já existe uma forma mais fácil de verificar se uma string faz parte da outra string. É a função ```.startsWith()```.
+
+O código anterior poderia ficar:
+
+```javascript
+campo.on('input', function () {
+  var digitado = campo.val();
+  //ao invés de usarmos o .substr() podemos usar o .startsWith(frase ou palavra a ser comparada)
+  if( frase.startsWith(digitado)) {
+   campo.addClass("borda-verde");
+  } else {
+   campo.addClass("borda-vermelha");
+  }
+})
+```
+A função startsWith devolve ```true``` ou ```false```, se a frase começa com o valor digitado ou não.
