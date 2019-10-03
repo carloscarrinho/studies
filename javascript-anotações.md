@@ -423,3 +423,94 @@ Não é recomendado utilizar o ```switch``` para testar intervalos (como no exem
 - .innerHTML: Modifica o texto que está dentro de uma tag no HTML;
 
 - .createElement combinado com .appendChild: Permite criar um elemento dentro do HTML, como se fossemos lá e criássemos manualmente. É útil quando queremos criar estruras ou inserir coisas na página conforme a interação do usuário.
+
+### Estruturas de Repetição (Laços)
+Laços são blocos de código que se repetem enquanto uma determinada condição for atendida. Para utilizar esse tipo de estrutura podemos utilizar as funções:
+
+- while(condição){} - que é uma estrutura de repetição com teste lógico no início;
+
+```javascript
+var contador = 1;
+while (contador <= 6) {
+	console.log(`Passo ${contador}`);
+	contador++
+}
+```
+
+- do {} while(condição) - que é uma estrutura de repetição com teste lógico no final.
+
+```javascript
+//com esta estrutura chegamos ao mesmo resultado do exemplo anterior
+var contador = 1;
+do {
+	console.log(`Passo ${contador}`);
+	contador++
+} while (contador <= 6) {
+}
+
+```
+- for (inicio; teste; incremento){} - que é uma estrutura de repetição com variável de controle. E comumente a mais utilizada pelor programadores em situações onde se conhece o limite das execuções (quantas vezes o bloco de código tem de ser executado).
+
+```javascript
+for (var contador = 1; contador <= 6; contador++){
+	console.log(`Passo ${contador}`);
+}
+```
+
+
+### Variáveis Compostas
+As *variáveis simples* são aquelas que só conseguem armazenar um valor por vez. Desse modo, as *variáveis compostas* são aquelas capazes de armazenar vários valores em uma mesma estrutura. Este tipo de variável faz uso do chamado *Array* (ou Vetor, em portuquês).
+
+```javascript
+var automoveis = [opala, escort, monza, celta, fiesta, corsa, siena, punto];
+//se eu quisesse armazenar os carros que minha familia e eu já tivemos todos em uma única variável
+```
+
+Os arrays são representados pelos colchetes '[]', armazenando os elementos em *keys* (ou índices, em portuquês), que podem ser utilizados para acessar o *valor* de cada elemento posteriormente. Esses índices são contados a partir do zero, ou seja, na variável composta criada no exemplo acima, o opala está no índice 0, o escort no índice 1, e assim sucessivamente.
+
+```javascript
+let automoveis = ['opala', 'escort', 'monza', 'celta', 'fiesta', 'corsa', 'siena', 'punto'];
+
+for (carro = 0; carro < automoveis.length; carro++){
+	console.log(`O ${carro + 1}º veículo que minha família teve foi o ${automoveis[carro]}`);
+	if (carro == automoveis.length) {
+		console.log(`O ${carro + 1}º nosso carro atual é o ${automoveis[carro]}`);
+	}
+}
+```
+
+É possível inserir um novo elemento dentro de um array previamente definido, para isso pode-se fazer de duas formas:
+
+1ª) indicar a variável, o índice do elemento que se deseja colocar no array entre colchetes e depois o elemento propriamente dito:
+
+```javascript
+let automoveis = ['opala', 'escort', 'monza', 'celta', 'fiesta', 'corsa', 'siena', 'punto'];
+
+// variavel[índice do elemento] = valor do elemento;
+automoveis[8] = 'uno vivace';
+```
+
+2ª) Utilizar o comando .push(valor do elemento). Neste caso, o novo elemento será inserido ao final da lista.
+
+```javascript
+let automoveis = ['opala', 'escort', 'monza', 'celta', 'fiesta', 'corsa', 'siena', 'punto'];
+
+// variavel[índice do elemento] = valor do elemento;
+automoveis.push('uno vivace');
+```
+
+Caso tenhamos um array formado por números como:
+
+```javascript
+let num = [5, 8, 7, 3, 9, 2];
+```
+
+Podemos utilizar o .sort() para organizá-los em ordem crescente dentro da lista:
+
+```javascript
+let num = [5, 8, 7, 3, 9, 2];
+
+num.sort();
+//o resultado seria: [2, 3, 5, 7, 8, 9]
+
+```
