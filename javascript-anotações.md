@@ -284,6 +284,8 @@ Há uma lista super extensa de eventos possíveis, é valido acessar a página d
 
 Para utilizar os eventos na prática, é necessário que aliar um evento a uma função, isto é, a ação que deve ser executada a partir do disparo do evento, como por exemplo um clique em um botão, ou um input de dados em um formulário ou ainda a movimentação do cursor do mouse sobre algum elemento.
 
+É possível adicionar o evento a partir do HTML:
+
 ```html
 <body>
 	<!-- utilizando o evento de clique por meio do html, mas também é possível (e recomendado) fazer pelo JavaScript -->
@@ -310,7 +312,7 @@ Para utilizar os eventos na prática, é necessário que aliar um evento a uma f
 </body>
 ```
 
-Também é possível chegar ao mesmo resultado utilizando 'escutadores' (comando 'addEventListener') por meio do JavaScript.
+Mas também é possível chegar ao mesmo resultado utilizando o comando 'addEventListener' (escutadores) por meio do JavaScript.
 
 ```html
 <body>
@@ -327,4 +329,30 @@ Também é possível chegar ao mesmo resultado utilizando 'escutadores' (comando
 		a.addEventListener('onmouseout', sair);
 	</script>
 </body>
+```
+
+### Condições
+
+#### Condição simples
+Possui apenas um bloco condicional, comumente com o valor ```true```. Se a condição retornar ```false``` nada acontece.
+
+```javascript
+if (numero > x) {
+	//script que deve ser executado se a condição for verdadeira
+}
+```
+
+#### Condição 'Dupla'
+Possui dois blocos condicionais, um ```if``` e ```else```. Temos dois scripts diferentes para quando a condição retorna ```true``` ou ```false```.
+
+```javascript
+var velocidade = 45;
+
+if (velocidade > 60) {
+	//script caso a condição retorne 'true'
+	console.log('Você ultrapassou o limite máximo de velocidade, MULTADO!');
+}else {
+	//script caso a condição retorne 'false'
+	console.log('Dirija sempre com o cinto de segurança!');
+}
 ```
