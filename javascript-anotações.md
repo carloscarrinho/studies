@@ -342,7 +342,7 @@ if (numero > x) {
 }
 ```
 
-#### Condição 'Dupla'
+#### Condição Composta
 Possui dois blocos condicionais, um ```if``` e ```else```. Temos dois scripts diferentes para quando a condição retorna ```true``` ou ```false```.
 
 ```javascript
@@ -356,3 +356,70 @@ if (velocidade > 60) {
 	console.log('Dirija sempre com o cinto de segurança!');
 }
 ```
+
+#### Condições Aninhadas
+Quando é necessário fazermos mais de duas condições, podemos utilizar o ```else if``` para aninhar as condições. É possível criar quantos ```else if``` quanto forem necessários para satisfazer o conjunto de Condições.
+
+```javascript
+var idade = 15
+
+if (idade < 16) {
+	console.log('Não vota');
+} else if (idade < 18 || idade > 65) {
+	console.log('Voto opcional');
+} else {
+	//neste 'else' também poderíamos colocar 'else if'
+	console.log('Voto obrigatório');
+}
+```
+
+#### Condições Múltiplas
+Em situações específicas podemos utilizar uma outra estrutura para estabelecer condições que é o ```switch```, para isso precisamos utilizar uma expressão como base, o ```case``` para cada uma das condições e o ```break``` para fechar o case e, por fim, o ```default``` para estabelecer qual a condição padrão.
+
+É obrigatório o uso do ```break``` para fechamento dos ```case```, porém é uma boa prática utilizá-lo também para a condição ```default```.
+
+```javascript
+switch (expression) {
+	case expression:
+
+		break;
+	default:
+}
+```
+Um recurso bastante útil no trabalho com condicionais é o ```new Date()```. Ele busca a data atual do sistema, seja o navegador do usuário (em ambiente de produção), ou o servidor do desenvolvedor (em ambiente de desenvolvimento).
+
+```javascript
+var data = new Date();
+//a título de curiosidade para pegar a hora do sistema usamos '.getHour'
+var hora = data.getHour();
+var diaSemana = data.getDay();
+//o '.getDay' retorna o dia da semana (domingo, segunda, terça, etc.)
+//os dias da semana funcionam como um array onde o domingo é a posição zero [dom, seg, ter, etc.]
+
+//lemos assim: 'de acordo com o dia da semana...'
+switch (diaSemana) {
+	//'se e o valor for zero, escreva no console: Domingo'
+	case 0:
+		console.log('Domingo');
+		break;
+	//'se o valor for 1, escreva no console: Segunda'
+	case 1:
+		console.log('Segunda');
+		break;
+	case 2:
+		console.log('Terça');
+		break;
+	//'se não satisfazer nenhum dos casos anteriores, escreva: [ERRO] Dia inválido'
+	default:
+		console.log('[ERRO] Dia inválido');
+}
+```
+Não é recomendado utilizar o ```switch``` para testar intervalos (como no exemplo da obrigatoriedade de voto, mais acima). Nestes casos é melhor utilizar a estrutura ```if```.
+
+### Alguns recursos úteis
+
+- .setAttribute: Insere atributos dentro de elementos no DOM ;
+
+- .innerHTML: Modifica o texto que está dentro de uma tag no HTML;
+
+- .createElement combinado com .appendChild: Permite criar um elemento dentro do HTML, como se fossemos lá e criássemos manualmente. É útil quando queremos criar estruras ou inserir coisas na página conforme a interação do usuário.
