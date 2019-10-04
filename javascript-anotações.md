@@ -459,14 +459,14 @@ for (var contador = 1; contador <= 6; contador++){
 
 
 ### Variáveis Compostas
-As *variáveis simples* são aquelas que só conseguem armazenar um valor por vez. Desse modo, as *variáveis compostas* são aquelas capazes de armazenar vários valores em uma mesma estrutura. Este tipo de variável faz uso do chamado *Array* (ou Vetor, em portuquês).
+As **variáveis simples** são aquelas que só conseguem armazenar um valor por vez. Desse modo, as **variáveis compostas** são aquelas capazes de armazenar vários valores em uma mesma estrutura. Este tipo de variável faz uso do chamado **Array** (ou Vetor, em portuquês).
 
 ```javascript
 var automoveis = [opala, escort, monza, celta, fiesta, corsa, siena, punto];
 //se eu quisesse armazenar os carros que minha familia e eu já tivemos todos em uma única variável
 ```
 
-Os arrays são representados pelos colchetes '[]', armazenando os elementos em *keys* (ou índices, em portuquês), que podem ser utilizados para acessar o *valor* de cada elemento posteriormente. Esses índices são contados a partir do zero, ou seja, na variável composta criada no exemplo acima, o opala está no índice 0, o escort no índice 1, e assim sucessivamente.
+Os arrays são representados pelos colchetes '[]', armazenando os elementos em **keys** (ou índices, em portuquês), que podem ser utilizados para acessar o **valor** de cada elemento posteriormente. Esses índices são contados a partir do zero, ou seja, na variável composta criada no exemplo acima, o opala está no índice 0, o escort no índice 1, e assim sucessivamente.
 
 ```javascript
 let automoveis = ['opala', 'escort', 'monza', 'celta', 'fiesta', 'corsa', 'siena', 'punto'];
@@ -509,8 +509,78 @@ Podemos utilizar o .sort() para organizá-los em ordem crescente dentro da lista
 
 ```javascript
 let num = [5, 8, 7, 3, 9, 2];
-
 num.sort();
-//o resultado seria: [2, 3, 5, 7, 8, 9]
 
+//o resultado seria: [2, 3, 5, 7, 8, 9]
 ```
+
+O JavaScript, a partir das versões mais recentes do ECMAScript, possui um jeito otimizado para trabalhar com os arrays e objetos, em contextos similares a ao exemplo dos automoveis. É a função for( in ).
+
+Aplicando-a no caso dos automoveis ficariamos com o código assim:
+
+```javascript
+let automoveis = ['opala', 'escort', 'monza', 'celta', 'fiesta', 'corsa', 'siena', 'punto'];
+
+for (let contador in automoveis){
+	console.log(`O ${carro + 1}º veículo que minha família teve foi o ${automoveis[carro]}`);
+	if (carro == automoveis.length) {
+		console.log(`O ${carro + 1}º nosso carro atual é o ${automoveis[carro]}`);
+	}
+}
+```
+
+Outra funcionalidade importante para o trabalho com Arrays é o .indexOf(elemento). Se quisermos buscar o índice de um determinado elemento dentro da lista, podemos chamar esta função e passar o elemento que estamos buscando entre parenteses.
+
+```javascript
+let automoveis = ['opala', 'escort', 'monza', 'celta', 'fiesta', 'corsa', 'siena', 'punto'];
+
+let carroEscolhido = automoveis.indexOf('celta')
+
+console.log(`A posição do carro escolhido é a ${carroEscolhido + 1}ª`);
+```
+
+### Funções
+São **ações** executadas a partir de uma **chamada** ou em decorrência de algum **evento**. Uma função também pode receber **parâmetros** e retornar um **resultado**.
+
+A sintaxe básica é: ``` function acao(parametro formal){algoritmo return}``` após codificar a ação, é necessário fazer uma 'chamada' desta função, seja diretamente, seja por meio de um evento.
+
+Vamos implementar uma função que identifica se um número é par ou é impar:
+
+```javascript
+function parImpar(numero) {
+	//algoritmo que implementa a ação
+	if(numero % 2 == 0){
+		return `O número ${numero} é par`
+	}else {
+		return `O número ${numero} é ímpar`
+	}
+}
+console.log(parImpar(6));
+```
+
+É importante observar que uma função só pode ter um **return** possível. No exemplo acima é executado o return para o valor par ou para o valor ímpar.
+
+Podemos trabalhar também com mais de um parâmetro:
+
+```javascript
+function soma(n1, n2) {
+	return n1 + n2
+}
+
+console.log(;soma(7, 3));
+```
+
+Se no exemplo acima eu deixar de passar um dos parâmetros na minha chamada da função, o resultado seria NaN (Not a Number). Sendo assim, podemos passar parâmetros opcionais:
+
+```javascript
+function soma(n1=0, n2=0) {
+	return n1 + n2;
+}
+
+console.log(soma(7));
+//passamos apenas o valor de um parâmetro
+```
+
+Perceba que neste caso passamos apenas o valor de um parâmetro. Dessa forma, como estabelecemos que, se não passarmos um valor para n1 ou n2 na chamada, o valor será zero, a função retorna o valor apenas com o uso do parâmetro que passamos, neste caso o ```7```.
+
+Obs: é válido, para aprofundar os estudos sobre funções no JavaScript, procurar sobre 'Recursividade'.
