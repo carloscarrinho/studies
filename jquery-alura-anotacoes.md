@@ -86,11 +86,7 @@ $('textarea').attr('disabled', true);
 
 - $(document).ready(): carrega toda a página HTML. É possível separar todas as funções e inserir dentro do .ready para organizar o código.
 
-#### Funções de Atalho (Shorthand Functions)
-
-$():
-
-.click(): atalho para a função ```.on("click", ...)``` . Ela tem o mesmo comportamento, apenas sendo um jeito mais curto e rápido de escrever a função.
+Obs: É válido dar uma olhada em **'Shorthand Functions'**
 
 #### Trabalhando com Estilos
 Por meio do JavaScript / jQuery podemos modificar o estilo de determinados elementos. Um recurso básico que permite esse tipo de modificação é o comando ```.css()``` do jQuery.
