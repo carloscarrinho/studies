@@ -88,7 +88,7 @@ $('textarea').attr('disabled', true);
 
 Obs: É válido dar uma olhada em **'Shorthand Functions'**
 
-#### Trabalhando com Estilos
+### Trabalhando com Estilos
 Por meio do JavaScript / jQuery podemos modificar o estilo de determinados elementos. Um recurso básico que permite esse tipo de modificação é o comando ```.css()``` do jQuery.
 
 ```javascript
@@ -156,7 +156,7 @@ campo.toggleClass('campo-desativado', true) // sempre adiciona
 ```
 
 
-#### Outras Funções
+### Outras Funções
 - .substr(a,b): lê-se 'sub string' e é um recurso que permite pegar um pedaço de uma string. O parâmetro 'a' representa em qual caractere inicia o 'corte' e o parâmetro 'b' representa o caractere final.
 
 ```javascript
