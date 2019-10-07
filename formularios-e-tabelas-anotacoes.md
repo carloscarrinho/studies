@@ -328,4 +328,4 @@ Portanto, em uma tabela de 5 colunas, para ter uma célula única na linha, usam
 </table>
 ```
 
-Por hoje é só!
+Por hoje é só pessoal!
