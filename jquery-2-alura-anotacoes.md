@@ -23,7 +23,7 @@ Primeiro criamos uma classe e no CSS escondemos o elemento que queremos:
    display: none;
 }
 ```
-A partir daí podemos utilizar ```.css()``` para modificar esse valor, com o auxílio de um botão (previamente configurado no HTML) e um evento de clique:
+A partir daí, podemos utilizar ```.css()``` para modificar esse valor, com o auxílio de um botão (previamente configurado no HTML) e um evento de clique:
 
 ```javascript
 //busca o botao no DOM, atribui um evento de click que chama uma função 'mostraPlacar'
@@ -35,11 +35,11 @@ function mostraPlacar() {
    $('.placar').css('display', 'block');
 }
 ```
-Assim, quando o botão for clicado, a propriedade será modificada no CSS que irá esconder o elemento 'placar'
+Assim, quando o botão for clicado, a propriedade será modificada no CSS que irá mostrar o elemento 'placar'
 
 Contudo, depois que o placar for mostrado, mesmo que eu clique novamente no botão, o placar não voltará a ficar escondido. Seria necessário recarregar a página para que isso acontecesse ou criar uma lógica com a função 'if' para poder implementar essa rotina.
 
-Porém, o jQuery possui outros recursos que facilitam a implementação dessa situação.
+O jQuery, porém, possui outros recursos que facilitam a implementação dessa situação.
 
 
 Caso B) Modificando o elemento com **.show()** ou **.hide()**
@@ -68,7 +68,7 @@ $('.placar').toggle();
 Bem mais simples.
 
 
-Existe, ainda, uma outra animação com o auxílio das funções **.slideDown()**, **.slideUp()** ou **.slideToggle()**. Elas funcionam na mesma lígica de 'show', 'hide' e 'toggle', todavia, elas adicionam uma animação mais suave na página, deslizando para baixo (slideDown) ou para cima (slideUp), conforme o caso.
+Existe, ainda, uma outra animação com o auxílio das funções **.slideDown()**, **.slideUp()** ou **.slideToggle()**. Elas funcionam na mesma lógica de 'show', 'hide' e 'toggle', todavia, elas adicionam uma animação mais suave na página, deslizando para baixo (slideDown) ou para cima (slideUp), conforme o caso.
 
 Dentro dessas funções é possível passar o tempo da animação em milisegundos
 
@@ -95,7 +95,7 @@ function removeLinha(event) {
    //retirando o comportamento padrão do navegador
    event.preventDefault()
 
-   //buscando o elemento que deseja remover
+   //buscando o elemento que deseja remover e atribuindo uma variável 'linha' apenas por questões semânticas
    var linha = $('.linha');
 
    //estabelecendo a animação com 'fadeOut'
@@ -107,8 +107,19 @@ function removeLinha(event) {
    }; 1000)
 }
 ```
-Assim como as funções anteriores, além do **.fadeOut()**, também existe o **.fadeIn()** e o **.fadeToggle()**.
 
+Também é possível ativar a função **.remove()** somente após o **.fadeOut()** chamando-a como um parâmtro dentro do fadeOut por meio de uma função anônima:
+
+```JavaScript
+var linha = $('.linha');
+
+linha.fadeOut(function () {
+   linha.remove();
+})
+```
+Desse modo, o **remove** somente será aplicado após a finalização da animação do **fadeOut**.
+
+Assim como as funções anteriores, além do **.fadeOut()**, também existe o **.fadeIn()** e o **.fadeToggle()**.
 
 Um recurso útil para trabalhar com animações é a função **.stop()**, que permite dar um melhor comportamento às animações. Esta função encerra uma animação que está ocorrendo antes de iniciar a outra.
 
@@ -123,21 +134,81 @@ function mostraPlacar() {
 //é importante lembrar dos parênteses.
 ```
 
+#### Outras funções interessantes para animação
 Outra função interessante para desenvolver animações a partir do JavaScript é a **.animate()**. Nela, precisamos passar dois parâmetros: o primeiro é um objeto e o segundo é o intervalo de animação.
 
-DETALHAR MELHOR A IMPLEMENTAÇÃO DO ANIMATE
+Para fazer uso do **.animate()**, principalmente combinado com **.slideDown()** ou **.slideUp()** é comum precisarmos da posição para a qual queremos fazer esta animação.
 
-Para fazer uso do **.animate()**, principalmente combinado com **.slideDown()** ou **.slideUp()** é comum precisarmos da posição para a qual queremos fazer esta animação. Para isso utilizamos outra função, chamada **.offSet()**.
+Para isso utilizamos outra função, chamada **.offSet()**. Esta função retorna as características de um objeto, dentre elas a sua posição.
 
-Na offSet devemos indicar em qual ponto da posição informada queremos encerrar, no 'top', no 'bottom', etc.
+Desse modo, na ```.offSet()``` devemos indicar qual elemento do documento queremos animar e em qual ponto da posição informada queremos encerrar a animação, no 'top', no 'bottom', etc.
 
 ```javascript
 function scrollPlacar() {
+   //buscando o elemento 'placar', encontrando a sua posição e armazenando em uma variável semântica.
     var posicaoPlacar = $(".placar").offset().top;
-
-    $("html, body").animate(
-    {
-        scrollTop: posicaoPlacar
-    }, 1000);
 }
 ```
+
+A partir disso, chamamos a função ```.animate()``` passando os parâmetros que ela precisa: as propriedades do objeto que buscamos com o **.offset()** e o intervalo de animação.
+
+```javascript
+var posicaoPlacar = $(".placar").offset().top;
+
+//chamando todo 'body' da página e animando através da propriedade 'scrollTop'
+//a aplicação de propriedades nos objetos JavaScript é similar a um código em CSS
+$("html, body").animate(
+{
+   //o valor para 'scrollTop' precisa ser passado como uma unidade de medida
+   //daí a concatenação da variável 'posicaoPlacar' com 'px'
+    scrollTop: posicaoPlacar+'px'
+}, 1000);
+```
+
+O jQuery possui a função ```is``` que permite consultar uma pseudo class dentro do CSS. Toda vez que um elemento esta com display diferente de ```none``` ele ganha a pseudo class **:visible**.
+
+A função ```is``` retorna ```true``` caso o elemento esteja visível. Se ele estiver visível, precisamos escondê-lo e isso é feito através da função ```hide```. Para exibir o elemento, é usada a função ```show```.
+
+```javascript
+//queremos mostrar ou esconder um elemento no DOM utilizando a função 'is'
+$('#botao-promocao').click(function() {
+
+  var promocoes = $('.promocoes');
+  //testamos se o elemento com a class 'promocoes' estiver visível
+  if(promocoes.is(':visible')) {
+
+    promocoes.hide();
+  } else {
+    promocoes.show();
+  }
+});
+```
+
+De forma similar ao ```is```, o jQuery também possui a função ```hasClass``` que retorna ```true``` se um elemento possui ou não uma classe.
+
+No exemeplo anterior, removemos a classe **invisivel** caso o elemento já a tenha e a adicionamos caso ele não a tenha. Todo esse processo é feito a cada clique do usuário.
+
+```javascript
+$('#botao-promocao').click(function() {
+
+  var promocoes = $('.promocoes');
+  //testamos se o elemento com a class 'promocoes' também possui a class 'invisivel'
+  if(promocoes.hasClass('invisivel')) {
+    promocoes.removeClass('invisivel');
+
+  } else {
+    promocoes.addClass('invisivel');
+  }
+});
+```
+
+Neste caso, o resultado destas últimas duas funções, ```is``` e ```hasClass``` é o mesmo. Mas é válido entender que o **is** testa se já uma pseudo class e o **hasClass** testa se há uma class.
+
+### Utilizando AJAX
+AJAX é o acrônimo de *'Asynchronous Javascript and XML'*, que em português significa *'Javascript e XML assíncronos'* e consiste em um recurso utilizado pela linguagem JavaScript que permite:
+
+- Ler os dados de um servidor web, depois de a página já estar carregada;
+- Atualizar os dados na página sem recarregá-la;
+- Enviar os dados para um servidor web por debaixo dos panos (sem que o usuário visualize o processo).
+
+**estudar o node.js**
