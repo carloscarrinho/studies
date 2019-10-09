@@ -86,7 +86,7 @@ Pensando na experiência do usuário, é interessante inserir algum tipo de anim
 
 Um ponto importante a observar, porém, é que a **.fadeOut()** não remove, de fato, o elemento, ela apenas o esconde. Isto é, o navegador vai aumentando a opacidade do elemento até implementar um ```display: none```.
 
-Então, para remover por completo, precisamos fazer uso da função **.remove()** em conjunto com a função **.setTimeOut()**, que estabelece um tempo para que essa função seja aplicada (o tempo que o fadeOut necessita para realizar a sua animação).
+Então, para remover por completo, precisamos fazer uso da função **.remove()** em conjunto com a função **.setTimeout()**, que estabelece um tempo para que essa função seja aplicada (o tempo que o fadeOut necessita para realizar a sua animação).
 
 O código poderia ficar assim:
 
@@ -101,8 +101,8 @@ function removeLinha(event) {
    //estabelecendo a animação com 'fadeOut'
    linha.fadeOut(1000);
 
-   //estabelecendo um atraso na remoção final do elemento com o 'setTimeOut' e 'remove'
-   setTimeOut(function (){
+   //estabelecendo um atraso na remoção final do elemento com o 'setTimeout' e 'remove'
+   setTimeout(function (){
       linha.remove()
    }; 1000)
 }
@@ -211,4 +211,105 @@ AJAX é o acrônimo de *'Asynchronous Javascript and XML'*, que em português si
 - Atualizar os dados na página sem recarregá-la;
 - Enviar os dados para um servidor web por debaixo dos panos (sem que o usuário visualize o processo).
 
-**estudar o node.js**
+Diante dos objetivos/propósitos do AJAX, o jQuery disponibiliza algumas funções que nos permitem aplicar esse conceito nos nossos sistemas.
+
+#### Buscando informações
+
+A função mais básica é a **$.get()**, que serve para realizar requisições HTTP do tipo GET para um determinado endereço de servidor que possui os dados que queremos buscar.
+
+A sintaxe da função pede dois parâmetros: o primeiro é o **endereço para o qual faremos a requisição** e o segundo a **ação (função) que deverá ser executada** após o recebimento da resposta do servidor.
+
+Então fica: ```$.get(endereço, acao)```
+
+Quando a função ```$.get``` vai retornar dados para que sejam utilizados pelo usuário, é preciso colocar nos argumentos da função que é chamada ao sucesso da requisição uma variável que irá conter os dados recebidos. Normalmente colocamos um nome semântico, como **dados** ou **data**, para indicar que aquele é o resultado obtido da requisição AJAX
+
+A forma como estes dados estão dispostos pode variar, mas um caso comum é que eles estejam no formato **JSON**, que consiste em um objeto, contendo as propriedades de cada item da lista. Esses itens por sua vez, são representados por índices, partindo de zero.
+
+Uma possibilidade é o segundo parâmtro do 'get' como uma função anônima:
+
+```javascript
+$('#botao-frase').click(fraseAleatoria)
+//passando o segundo parâmetro do '$.get' como função anônima
+$.get('http://localhost:3000/frases', function (data) {
+   //buscamos o elemento com a class 'frase' no DOM e o guardamos na variável 'frase'
+   var frase = $('.frase')
+
+   //pegamos a propriedade 'texto' contida no item guardado no índice zero do objeto
+   //e a inserimos no lugar da frase que estava no elemento
+   frase.text((data[0]).texto);
+})
+```
+Perceba que estabelecemos que o retorno da requisição se chama 'data' (poderia ser 'retorno', 'dados', 'informações', etc.) e o passamos como parâmetro da função, assim podemos passar esse retorno dentro da função, indicando que estamos fazendo uso de tais dados contidos no banco de dados do servidor.
+
+Outra possibilidade é passar o segundo parâmetro como uma função nomeada:
+
+```javascript
+$('#botao-frase').click(fraseAleatoria);
+
+function fraseAleatoria() {
+   //passando o segundo parâmetro do '$.get' como função nomeada
+   $.get('http://localhost:3000/frases', trocaFraseAleatoria);
+}
+
+function trocaFraseAleatoria(data) {
+   var frase = $('.frase').text
+   frase.text((data[0]).texto);   
+}
+
+```
+
+--
+##### Fique de olho
+
+Duas funções úteis do JavaScript comumente utilizadas no trabalho com AJAX são as funções **Math.random()** e **Math.floor()**. Elas servem para criar números aleatórios.
+
+A ```Math.random()``` gera um número aleatório, porém este número vem completo, com várias casas decimais (0.XXXXXXXXXXX). Como normalmente precisamos de um número inteiro, precisamos utilizar a ```Math.floor()``` que arredonda este número para baixo.
+--
+
+#### Tratando erros
+No trabalho envolvendo sistemas web é muito comum haver erros, seja porque houve alguma falha de codificação, no servidor ou meramente por conta da internet do usuário, os erros são diversos.
+
+O jQuery possui uma função complementar à função **$.get** chamada ```.fail()``` que identifica um erro na requisição e retorna algum tipo de resultado, a ser estabelecido dentro da função.
+
+```javascript
+$('#botao-frase').click(fraseAleatoria);
+
+function fraseAleatoria() {
+   $.get('http://localhost:3000/frases', trocaFraseAleatoria)
+   //estabelecendo um 'alert' para o usuario caso a requisição 'get' falhe
+   .fail(function () {
+      alert('Ocorreu um erro, por favor tente novamente!');
+   })
+}
+```
+
+#### Experiência do usuário
+Assim como os erros, existem outros recursos complementares à função **$.get** que permitem melhorar a experiência do usuário na utilização do sistema.
+
+Uma delas é a função ```.always()``` que executa uma determinada ação sempre que terminar a requisição, seja ela bem sucedida ou não.
+
+Isso nos permite, por exemplo, inserir elementos visuais na tela que deem um feedback para o usuário sobre o que está acontecendo na página. Isto é, em alguns casos pode haver demora no retorno da requisição, assim, esse pequeno (ou não tão pequeno) intervalo de tempo entre a solicitação e a resposta poderia ter uma informação de que a solicitação está sendo processada.
+
+Um elemento visual comum é o 'spinner' que consiste naquelas barrinhas de 'loading' que existem de variadas formas na internet.
+
+Para implementar esta ideia, pode ser criada uma ```div``` no documento que contém uma imagem de spinner e inicia com um ```display: none```. A partir daí, em nosso código JavaScript criamos a função **.always()** que vai trocar o display para 'show' enquanto o retorno da função **$.get** não acontece:
+
+```javascript
+$('#botao-frase').click(fraseAleatoria);
+
+function fraseAleatoria() {
+   //mostra o 'spinner' quando a função 'fraseAleatoria' for ativada (início da requisição)
+   $('#spinner').show()
+
+   $.get('http://localhost:3000/frases', trocaFraseAleatoria)
+   //estabelecendo um 'alert' para o usuario caso a requisição 'get' falhe
+   .fail(function () {
+      alert('Ocorreu um erro, por favor tente novamente!');
+   })
+   .always(function () {
+      //esconde o 'spinner' quando receber o retorno da requisição
+      $('#spinner').hide();
+   })
+}
+```
+A principal ideia de implementar um spinner como um elemento visual após uma requisição AJAX é informar ao usuário que o pedido dele está sendo processado, e exibir visualmente um ícone clássico que simboliza isto. É uma questão de melhorar a **UX(User eXperience)** do usuário na aplicação, algo que é muito importante na construção de qualquer sistema hoje em dia.
