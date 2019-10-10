@@ -327,7 +327,7 @@ Seguindo um exemplo prático, imaginemos que queremos buscar uma frase, por meio
 
 Primeiro criamos o campo para input e o botão no HTML e depois partimos para o código JavaScript que implementa tal dinâmica.
 
-É preciso passar, como mencionado, a função $.get, mas é também preciso estabelecer qual o dado que queremos buscar por meio de um **objeto JavaScript**. Este objeto é informado entre chaves {}, qual o tipo de dado (parametro) que se deseja buscar (id, texto, number, nome, etc.) e o valor a ser procurado.
+Para conseguirmos enviar dados via AJAX, com jQuery, precisamos passar os dados como uma **String** ou um **Objeto JavaScript** simples, como o segundo parâmetro da função $.get(). Este objeto é informado entre chaves {}, qual o tipo de dado (parametro) que se deseja buscar (id, texto, number, nome, etc.) e o valor a ser procurado.
 
 ```javascript
 //quando clicar no botão, executa a função 'buscaFrase'
