@@ -259,11 +259,13 @@ function trocaFraseAleatoria(data) {
 ```
 
 --
+
 ##### Fique de olho
 
 Duas funções úteis do JavaScript comumente utilizadas no trabalho com AJAX são as funções **Math.random()** e **Math.floor()**. Elas servem para criar números aleatórios.
 
 A ```Math.random()``` gera um número aleatório, porém este número vem completo, com várias casas decimais (0.XXXXXXXXXXX). Como normalmente precisamos de um número inteiro, precisamos utilizar a ```Math.floor()``` que arredonda este número para baixo.
+
 --
 
 #### Tratando erros
@@ -313,3 +315,44 @@ function fraseAleatoria() {
 }
 ```
 A principal ideia de implementar um spinner como um elemento visual após uma requisição AJAX é informar ao usuário que o pedido dele está sendo processado, e exibir visualmente um ícone clássico que simboliza isto. É uma questão de melhorar a **UX(User eXperience)** do usuário na aplicação, algo que é muito importante na construção de qualquer sistema hoje em dia.
+
+#### Enviando informações
+Em sistemas web complexos, não só precisamos buscar informações, mas também enviamos determinadas informações. No jQuery a função ```$.get``` também pode funcionar com este objetivo.
+
+Para que possamos buscar uma informação específica no nosso banco de dados, utilizamos o **$.get()** novamente, porém agora passamos três parâmetros, sendo o primeiro o **endereço** do servidor no qual iremos buscar, o segundo o **parâmetro** do dado que queremos encontrar e o terceiro a ação que desejamos executar após o retorno.
+
+Então fica assim: ```$.get(endereco, parametro do dado, acao)```
+
+Seguindo um exemplo prático, imaginemos que queremos buscar uma frase, por meio do seu índice (parametro) no array, a partir de um input e clique do usuário na página.
+
+Primeiro criamos o campo para input e o botão no HTML e depois partimos para o código JavaScript que implementa tal dinâmica.
+
+É preciso passar, como mencionado, a função $.get, mas é também preciso estabelecer qual o dado que queremos buscar por meio de um **objeto JavaScript**. Este objeto é informado entre chaves {}, qual o tipo de dado (parametro) que se deseja buscar (id, texto, number, nome, etc.) e o valor a ser procurado.
+
+```javascript
+//quando clicar no botão, executa a função 'buscaFrase'
+$('#botao-frase-id').click(buscaFrase);
+
+function buscaFrase() {
+   //busca o valor digitado pelo usuário no campo 'frase-id' e armazena na variável 'fraseId'
+   var fraseId = $('#frase-id').val()
+
+   //indicamos que o objeto que queremos possui o valor de 'id' igual ao valor armazenado em 'fraseId'
+   var dados = {id: fraseId};
+   //no endereço, busca objeto especificado e quando retornar, executa a função 'trocaFrase'
+   $.get('http://localhost:3000/frases', dados, trocaFrase);
+}
+
+function trocaFrase (data) {
+   var frase = $('frase');
+   //indicando qual parametro do objeto encontrado deve-se imprimir na tela
+   frase.text(data.texto)   
+}
+```
+É válido dizer que para consumirmos dados de um servidor precisamos conhecê-lo bem. Geralmente quem construiu o servidor gera uma documentação que lista todos os endereços possíveis, quais verbos do HTTP usar e seus devidos parâmetros.
+
+A documentação fornecida pelo programador Back-End pode variar de empresa para empresa, mas devemos ter a absoluta certeza que essa informação precisa ser passada. Não é obrigação do programador Front-End adivinhar os endereços e quais parâmetros eles recebem.
+
+Por exemplo, se for um cadastro de funcionários, eu preciso saber que o objeto na posição de id[0] está o Alexandre, no id[1] a Andressa, e por aí vai. Além disso, deve estar especificado quais outros parâmetros existem, por exemplo, a idade, a formação, o endereço, entre outros.
+
+Assim, conseguiremos buscar a informação que queremos a partir desses parâmetros, utilizando 'data.nome', 'data.idade', 'data.formacao', 'data.endereco', etc.
