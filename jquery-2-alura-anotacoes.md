@@ -316,7 +316,7 @@ function fraseAleatoria() {
 ```
 A principal ideia de implementar um spinner como um elemento visual após uma requisição AJAX é informar ao usuário que o pedido dele está sendo processado, e exibir visualmente um ícone clássico que simboliza isto. É uma questão de melhorar a **UX(User eXperience)** do usuário na aplicação, algo que é muito importante na construção de qualquer sistema hoje em dia.
 
-#### Enviando informações
+#### Enviando informações com GET
 Em sistemas web complexos, não só precisamos buscar informações, mas também enviamos determinadas informações. No jQuery a função ```$.get``` também pode funcionar com este objetivo.
 
 Para que possamos buscar uma informação específica no nosso banco de dados, utilizamos o **$.get()** novamente, porém agora passamos três parâmetros, sendo o primeiro o **endereço** do servidor no qual iremos buscar, o segundo o **parâmetro** do dado que queremos encontrar e o terceiro a ação que desejamos executar após o retorno.
@@ -356,3 +356,26 @@ A documentação fornecida pelo programador Back-End pode variar de empresa para
 Por exemplo, se for um cadastro de funcionários, eu preciso saber que o objeto na posição de id[0] está o Alexandre, no id[1] a Andressa, e por aí vai. Além disso, deve estar especificado quais outros parâmetros existem, por exemplo, a idade, a formação, o endereço, entre outros.
 
 Assim, conseguiremos buscar a informação que queremos a partir desses parâmetros, utilizando 'data.nome', 'data.idade', 'data.formacao', 'data.endereco', etc.
+
+#### Enviando informações com POST
+Para relembrar, enquanto o verbo ```GET``` nos permite **buscar** uma determinada informação no banco de dados, o verbo ```POST``` nos permite **gerar um registro** em tal banco.
+
+Portanto, caso a nossa página não possua um mecanismo de armazenar as informações passadas pelo usuário, quando ele recarregar a página, todos os seus dados são perdido e a aplicação volta a ter o banco original.
+
+Se em nossa aplicação web temos a intenção que o usuário interaja de uma forma que seja necessário (ou interessante) o armazenamento de suas informações, precisaremos utilizar o verbo **POST**. Para utilizá-lo, a sintaxe é identica ao do verbo GET.
+
+Precisamos indicar ```$.post(endereco, dados a enviar)```
+
+Antes de fazer esse envio, porém, existem algumas 'premissas' que precisam ser atendidas.
+
+A primeira delas é que precisamos de um evento que inicie esta requisição POST, pode ser, por exemplo, um botão. A segunda diz respeito ao formato do dado que enviaremos, isto é, os dados precisam ser um **Objeto JavaScript**.
+
+```javascript
+//exemplo de objeto JavaScript
+{
+   //parametro: valor
+   id: '0'
+   usuario: 'carloscarrinho'
+   placar: '5'
+}
+```
