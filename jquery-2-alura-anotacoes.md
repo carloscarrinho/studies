@@ -379,3 +379,73 @@ A primeira delas é que precisamos de um evento que inicie esta requisição POS
    placar: '5'
 }
 ```
+
+
+#### Função EACH
+A função ```.each()``` do jQuery serve para percorrer a lista de itens em um array.
+
+```javascript
+$('li').each(function () {
+   var texto = $(this).text();
+   console.log(texto);
+})
+```
+Neste caso, primeiro todos os elementos ```li``` são selecionados e para cada um deles é executada a função ```console.log() ``` que é passada como parâmetro do método ```each()```.
+
+A primeira iteração do ```this``` representará o primeiro elemento do array, na segunda iteração representará o segundo elemento e assim por diante. Imprimindo o conteúdo ```text``` de cada uma das **li** da página em questão.
+
+Lembrando que existe a função ```.forEach()``` no JavaScript 'puro' que nos permite executar ações como essa.
+
+```javascript
+var pessoas = ['Cadu', 'Emili', 'Ana', 'Carlos', 'Aparecida', 'Raphael'];
+
+pessoas.forEach(function (pessoa) {
+   console.log(pessoa);
+})
+```
+Nesse caso, será impresso no console do navegador cada um dos itens do array, isto é, o nome de cada pessoa.
+
+Aqui o array foi definido dentro do próprio aquivo .js, porém, também podemos selecionar a partir de um elemento html, como no exemplo anterior.
+
+```javascript
+var pessoas = getElementsByTagName('li');
+
+pessoas.forEach(function (pessoa) {
+   console.log(pessoa);
+})
+```
+Aqui o resultado seria o mesmo, porém buscando os itens de uma lista no HTML.
+
+#### Same Origin Policy
+*Same Origin* significa que por padrão o navegador não permite chamar um outro servidor que não é da mesma origem. Ou seja, se a aplicação foi carregada pelo endereço 'http://localhost:3000', o navegador só permite requisições para o domínio 'localhost' na porta '3000', pelo protocolo 'http'.
+
+Então, se tentarmos fazer um AJAX (buscar ou inserir dados) em uma página que esteja, por exemplo, nos endereços 'https://localhost:3000', 'http://alura/3000' ou 'http://localhost/2000' o navegador retornará um erro dizendo que não é permitido o acesso a tal servidor.
+
+Isso porque nós não fizemos uma requisição para o mesmo host (localhost), pelo mesmo protocolo (http) ou para a mesma porta (3000).
+
+Isso tudo existe para evitar fraudes e é uma forma de impedir que o usuário use um site que na verdade não representa a origem.
+
+#### CORS - Cross-Origin Resource Sharing
+Então é impossível carregar as frases do outro servidor? Não! Mas nesse caso é preciso configurar as outras origens permitidas no servidor que se pretende acessar via AJAX.
+
+Assim o outro servidor (não a origem que já funciona com AJAX) adiciona um cabeçalho na resposta HTTP e baseado nessa resposta o navegador permite uma requisição feita de outra origem.
+
+O cabeçalho é bem simples e faz parte do protocolo HTTP:
+
+```javascript
+Access-Control-Allow-Origin: http://localhost:3000, http://192.168.0.83:3000
+```
+Essa forma de permitir chamar uma outra origem também é chamado de **Cross-Origin Resource Sharing** ou **CORS**.
+
+Repare então que isso não é uma configuração do jQuery ou AJAX em geral. Isso é algo que o servidor precisa se preocupar e adicionar na resposta HTTP. Como nosso foco aqui é jQuery não vamos dar muitos detalhes pois depende muito da linguagem e framework utilizado no lado do servidor.
+
+Contudo, um exemplo de como poderia ser feito se escrevermos a aplicação servidora em **node.js (JavaScript) usando o framework Express**. Para habilitar CORS com Express bastaria utilizar:
+
+```javascript
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000, http://192.168.0.83:3000");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+```
+Percebemos então que o processo de habilitar ou não CORS é de responsabilidade do programador back-end. Sendo assim, o programador front-end pode solicitar sua habilitação, mas claro, quando o desenvolvedor back-end ver sentido nisso.
