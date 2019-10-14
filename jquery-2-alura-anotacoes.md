@@ -449,3 +449,22 @@ app.use(function(req, res, next) {
 });
 ```
 Percebemos então que o processo de habilitar ou não CORS é de responsabilidade do programador back-end. Sendo assim, o programador front-end pode solicitar sua habilitação, mas claro, quando o desenvolvedor back-end ver sentido nisso.
+
+### Plugins do jQuery
+Os Plugins do jQuery servem para adicionar funcionalidades avançadas em nossas páginas. Esses recursos são desenvolvidos por diversos programadores que disponibilizam em suas páginas ou através do Github.
+
+Algumas dicas para o uso de Plugins jQuery:
+- Seguir o passo a passo de instalação sugerido pelo autor do plugin;
+- Observar a ordem de importação do arquivo jQuery no HTML;
+- Prestar atenção às regras de estilo (CSS) embutidas no plugin (para conseguir dar as devidas personalizações).
+
+Vale a pena dar uma olhada na biblioteca de plugins para inserir aqueles pertinentes ao projeto que está sendo desenvolvido.
+
+### Finalização
+O jQuery é uma ferramenta muito utilizada no desenvolvimento Front-End, é válido buscar mais conhecimento sobre suas aplicações. Alguns pontos a observar e aprofundar:
+
+- Funções e Atalhos (shorthand funtions) do jQuery;
+- Diferenças entre funções JavaScript 'Puro' e funções jQuery;
+- Mais Funcionalidades x Melhor Performance;
+
+Por hoje é só!
