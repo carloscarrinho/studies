@@ -1,5 +1,7 @@
 # Curso de Sass e Compass - Descomplicando o CSS
 ## Plataforma Alura
+
+## Sass
 ### Introdução
 As páginas web possuem uma estrutura padrão com a utilização de HTML, CSS e JavaScript.
 
@@ -17,7 +19,7 @@ Para isso, foram criados alguns **Frameworks**, que são ferramentas de otimiza�
 
 O Sass é um pré-processador para trabalhar com o CSS que permite a criação de variáveis e [...] para facilitar e agilizar o trabalho.
 
-### utilizando o Sass
+### utilizando o Sass (Preprocessing)
 Os arquivos criados em Sass utilizam a extensão .scss e precisam ser **compilados** para gerar o arquivo .css que vai ser aplicado na página. Isso porque atualmente o único tipo de arquivo entendido pelos browsers como folha de etilos é o ```.css```.
 
 Assim, a primeira coisa que devemos fazer é pedir para que ele compile o arquivo "estilos.scss" por meio do **terminal**. O primeiro passo é entrar na pasta do projeto (em que está o arquivo a ser compilado), depois compilamos o arquivo **.scss** para criar um **.css**. Podemos fazer isso de duas formas:
@@ -161,7 +163,7 @@ button {
    @include borda-arredondada;
 }
 ```
-### Aninhamento
+### Aninhamento (Nesting)
 Um recurso muito comum nas linguagens de programação é o chamado 'aninhamento', que consiste ir fazendo um encadeamento de blocos de código dentro de outros, isto é, como no HTML que coloca-se uma tag filha dentro de outra tag pai.
 
 Entretando, infelizmente esse recurso não existe por padrão no CSS.
@@ -246,7 +248,7 @@ Assim, se nosso site possui um **index**, um **serviços** e um **contato**, uma
 @import 'index';
 @import 'servicos';
 @import 'contato';
-//não é necessário indicar a extensão do arquivo
+//não é necessário indicar a extensão do arquivo quando são todos arquivos '.scss'
 ```
 Assim, cada modificação feita nos arquivos separados é importada pelo 'estilos.scss' que por sua vez compila para o 'estilos.css'.
 
@@ -262,3 +264,130 @@ Assim, se, por exemplo, nossos arquivos estivessem dentro de uma pasta chamada '
 @import 'paginas/servicos'
 @import 'paginas/contato'
 ```
+É válido perceber que quando importamos um arquivo .scss no Sass ele é concatenado (juntado) no arquivo .css de destino, como se copiássemos (Ctrl + C) todo o código desse arquivo e colássemos (Ctrl + V) no outro.
+
+Já quando importamos um arquivo .css no Sass ele não concatena todo o código, mantém a sintaxe de import padrão do CSS.
+
+```css
+@import url("estilos.css");
+```
+
+### Extend/Inheritance
+Outra funcionalidade importante no uso do Sass é a **Placeholder**, que tem um comportamento similar ao do **Mixin**, porém com algumas pequenas diferenças.
+
+A primeira delas é a sintaxe: para criar um mixin utilizamos um sinal de percentual (%), mais o nome que desejamos dar para o placeholder:
+
+```
+%sombra-padrao {
+   box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.3);
+}
+```
+
+A segunda diferença é a chamada da função, se no **Mixin** utilizamos o '@include' + o nome do mixin no local que desejamos inserir aquele bloco de código, no **Placeholder** utilizamos o '@extend' + % + nome do placeholder.
+
+```
+//criando o placeholder
+%sombra-padrao {
+   box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.3);
+}
+
+//inserindo o placeholder
+.destaque button {
+   @extend %sombra-padrao;
+}
+.plano button {
+   @extend %sombra-padrao;
+}
+.contato button {
+   @extend %sombra-padrao;
+}
+```
+A vantagem de usar o **Placeholder** é que ele é mais performático do que o **Mixin**. Isso porque ele não replica o bloco de código, mas sim agrupa os seletores que possuem tal código.
+
+A diferença no CSS entre os dois seria:
+
+```css
+//inserido com o Mixin
+.destaque button {
+   box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.3);
+}
+.plano button {
+   box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.3);
+}
+.contato button {
+   box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.3);
+}
+```
+
+```css
+//inserido com o placeholder
+.destaque button, .plano button, .contato button {
+   box-shadow: 0 2px 6.65px 0.35px rgba(0, 0, 0, 0.3);
+}
+```
+
+A desvantagem, porém, é que o **Placeholder** não aceita que passemos argumentos, apenas o código replicado.
+
+No exemplo da borda arrendondada, precisávamos passar uma variável com um valor padrão e, nos elementos que quiséssemos aplicar um arredondamento de borda diferente, passávamos o valor excepcional na chamada do Mixin. Com o **Placeholder** isso não é possível.
+
+Portanto, o **Placeholder** agrupa os seletores e evita o código repetido, porém apenas é uma alternativa para o **Mixin** quando lidamos com parâmetros fixos. Quando é preciso passar algum valor na chamada da função, o **Mixin** é mais recomendado.
+
+Uma observação legal é que o recurso '@extend' pode ser utilizado não só com o Placeholder, mas também com outras funcionalidades do CSS, como seletores de classe, id e tags.
+
+Por exemplo, o código abaixo:
+
+```css
+.erro {
+  background: #f00;
+}
+.alerta {
+  border-radius: 3px;
+  @extend .erro
+}
+```
+Seria compilado pelo Sass como:
+
+```css
+.erro, .alerta {
+  background: #f00;
+}
+.alerta {
+  border-radius: 3px;
+}
+```
+Isso pode ser útil para economizar linhas de código sem a necessidade de criar placeholders ou mixins.
+
+
+### Outros Recursos Interessantes
+O Sass possui variadas funcionalidades para auxiliar na produtividade do programador CSS.
+
+#### Manipulando Cores
+Para manipular a mudança de cores de uma forma rápida e prática, sem precisar ficar buscando os códigos hexadecimais ou rgb das cores, podemos lançar mão dos atributos **darken** e **lighten**.
+
+Estas funcionalidades permitem deixar a cor a ser modificada mais escura (darken) ou mais clara (lighten).
+
+Isso pode ser feito passando dois parâmetros entre parênteses, o primeiro diz respeito a própria cor, o segundo fala para o Sass quão mais escuro ou claro se deseja tornar a cor, em valores percentuais.
+
+```
+$cor-padrao: darken(#c24e4b, 20);
+$cor-auxiliar: lighten(#1e2c35, 30);
+//não é necessário passar o '%' no 2º parâmetro, o Sass já entende que é um valor percentual
+```
+
+Outras funcionalidades legais para trabalhar com cores são:
+
+* adjust-hue(); - Ajusta o tom da cor;
+* saturate(); - Ajusta a saturação;
+* complement(); - ?
+
+
+### Operadores
+
+
+
+### Compass
+O Compass é uma biblioteca baseada no Sass. As bibliotecas tem o objetivo de agilizar o desenvolvimento fornecendo estruturas prontas.
+
+O Compass foi descontinuado, sendo assim, não achei por bem focar muito nisso.
+
+De qualquer forma, vale dar uma consultada na documentação, caso haja interesse: http://compass-style.org/
