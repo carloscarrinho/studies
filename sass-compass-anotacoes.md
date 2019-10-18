@@ -381,10 +381,6 @@ Outras funcionalidades legais para trabalhar com cores são:
 * complement(); - ?
 
 
-### Operadores
-
-
-
 ### Compass
 O Compass é uma biblioteca baseada no Sass. As bibliotecas tem o objetivo de agilizar o desenvolvimento fornecendo estruturas prontas.
 
