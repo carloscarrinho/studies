@@ -60,10 +60,9 @@ A página pode ser acessada em: https://developer.mozilla.org/pt-BR/docs/Web/Jav
 
 
 ### Organização das Pastas
-Normalmente quando vamos trabalhar com o modelo MVC, organizamos os arquivos em uma pasta chamada **app** e a subdividimos nas pastas **models**, **views** e **controllers**, além de outras pastas com arquivos auxiliares, como **routes**, **services**, etc.
+Normalmente quando vamos trabalhar com o modelo MVC, organizamos os arquivos em uma pasta chamada **app** e a subdividimos nas pastas **models**, **views** e **controllers**, além de outras pastas com arquivos auxiliares, como **routes**, **services**, **Helpers** etc.
 
 Naturalmente, os arquivos .js associados aos modelos ficam na pasta **models** e assim por diante.
-
 
 ## Classes
 
@@ -184,9 +183,9 @@ Podemos ainda lançar mão do recurso ```Object.freeze()``` para garantir que de
 ```
 
 ## Instanciando eventos do Controller
-Uma boa prática comumente utilizada para o desenvolvimento WEB é separar bem as funções de cada linguagem: estrutura da página para HTML, estilos para CSS e dinâmica para JavaScript.
+Uma boa prática comumente utilizada para o desenvolvimento WEB é separar bem as funções de cada linguagem: estrutura da página para HTML, estilos para CSS e dinâmica para JavaScript, cada um no seu quadrado.
 
-Entretanto, para criarmos os eventos que iniciam os Controllers, para diminuir a quantidade de código no mundo JavaScript, podemos fazer as chamadas dentro do HTML.
+Contudo, essa solução nos obriga a manipular o DOM toda vez que quisermos associar um evento com o elemento. Sendo assim, quando criamos **SPA** _(Single Page Applications)_ - páginas que não se recarregam durante seu uso - é muito comum usar a abordagem clássica, que é associar a função do evento diretamente na tag ```<html>``` da nossa página.
 
 Por exemplo, se queremos criar uma negociação em nosso sistema a partir de um botão de submit em nosso formulário, podemos fazer:
 
@@ -207,7 +206,20 @@ class NegociacaoController {
 
 ```
 
-2º) linkamos o evento no HTML:
+2º) Instanciamos a classe 'NegociacaoController'
+
+```html
+<!-- chamando o arquivo .js que cria a classe 'NegociacaoController' -->
+<script src="NegociacaoController.js"></script>
+
+<!-- instanciando a classe -->
+<script>
+	let negociacaoController = new NegociacaoController();
+</script>
+
+```
+
+3º) linkamos o evento no HTML:
 
 ```html
 <!-- atribuindo o controller a um evento de submit do formulário -->
@@ -216,5 +228,58 @@ class NegociacaoController {
 </form>
 
 ```
+Pode parecer trabalhoso, mas é muito menos do que fazer essas associações de evento (3º passo) no JavaScript.
 
-## Evitando percorrer o DOM
+Dependendo do viés teórico do desenvolvedor, essa solução pode ser considerada uma "heresia". Contudo, frameworks SPA, como **Angular**, adotam estrutura semelhante para associar a ação de um **controller** a um componente da página, dessa forma, removendo o desenvolvedor de ter que realizar essa associação manualmente.
+
+## Spread Operator
+O **Spread Operator** indica que um array será desmembrado possibilitando a manipulação dos seus itens como parâmetros. Para utilizá-lo, adicionamos reticências (...) antes do array.
+
+Observe este código:
+
+```javascript
+
+let lista1 = ['banana', 'laranja', 'mamão'];
+let lista2 = ['caju', 'tangerina', 'abacaxi'];
+
+lista1.push(...lista2);
+
+```
+O método ```push``` de todo array aceita receber os dados que você deseja incluir separados por vírgula, ou seja, a função está preparada para receber **N** elementos. Quando passamos a ```lista2``` para ```lista1.push``` com o uso do **spread operator**, cada item da lista será passado como um parâmetro para ```lista.push```:
+
+```javascript
+
+let lista1 = ['banana', 'laranja', 'mamão'];
+let lista2 = ['caju', 'tangerina', 'abacaxi'];
+
+lista1.push(...lista2);
+
+console.log(lista1);
+// ["banana", "laranja", "mamão", "caju", "tangerina", "abacaxi"]
+
+```
+
+## Outros recursos
+
+* **.map** - percorre os itens de um array. Podemos passar como parâmetros qual o item e qual o índice que estamos buscando: ```.map(item, indice)```;
+
+* **.split** - separa strings por meio de algum separador. Passamos dentro de parênteses o separador que utilizaremos para 'quebrar' a string: ```.split('-')```. Neste caso foi um traço ( - );
+
+* **arrow function** - cria uma função de uma forma mais limpa (menos verbosa). Não precisamos dar um nome para a função (similar à 'função anônima') e, quando a função tem apenas uma instrução (uma linha) não precisamos usar o bloco com as chaves '{}', bastando indicar com um '=>' (seta) mais a instrução:
+
+```javascript
+
+let data = new Date(...
+	this._inputData.value
+		 .split('-')
+		 .map((item, indice) => item - indice % 2)
+
+		 //arrow function que percorre o array e executa a instrução
+)
+
+```
+
+## Helpers (Ajudantes)
+Embora o modelo seja 'apenas' MVC (Model, View, Controller), como explanado mais acima quanto a organização de pastas, podemos criar outras classes que irão auxiliar nessa divisão de responsabilidades, facilitando a organização e reutilização de código.
+
+## Métodos Estáticos (static)
