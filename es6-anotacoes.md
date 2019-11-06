@@ -49,9 +49,18 @@ Para isso, existe uma página do MDN que faz uma 'Reintrodução ao JavaScript' 
 A página pode ser acessada em: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/A_re-introduction_to_JavaScript
 
 ## Modelo MVC
+Este modelo divide a aplicação em três camadas: **Model**, **View** e **Controller**.
 
 ### Model
+A camada **Model** consiste nas 'abstrações' de um objeto, isto é, quando temos um determinado objeto associado ao nosso projeto, abstraímos ele em um modelo que apresenta suas características (dados).
 
+Por exemplo: se estamos trabalhando na aplicação de uma rede social, possuímos diversos elementos (objetos) e um deles poderia ser o objeto 'Pessoa'.
+
+Para os fins dessa aplicação, entendemos que alguns dados dessa pessoa precisarão ser manipulados, como: nome, idade e sexo.
+
+Assim, temos a nossa primeira 'abstração', a classe 'Pessoa'.
+
+A partir daí podemos criar vários outras _classes_ que irão permitir a implementação do paradigma de **Orientação a Objetos**, como o **grupos**, as **empresas**, as **coleções** (de fotos, arquivos, etc.) e muito mais.
 
 ### View
 
@@ -97,9 +106,9 @@ Para chamarmos (criarmos uma instância) a classe 'Negociacao' precisamos usar o
 
 ```
 
-Quando usamos a sintaxe class, somos obrigados a usar o operador new para criarmos instâncias dessa classe. Se omitirmos o operador new receberemos no console a mensagem:
+Quando usamos a sintaxe ```class```, somos obrigados a usar o operador ```new``` para criarmos instâncias dessa classe. Se omitirmos o operador ```new``` receberemos no console a mensagem:
 
-```console
+```javascript
 
 	Uncaught TypeError: Class constructor Negociacao cannot be invoked without 'new'
 
@@ -279,7 +288,146 @@ let data = new Date(...
 
 ```
 
+* **.concat** - concatena dois ou mais arrays e itens em uma array única.
+
+```javascript
+
+let listaDeNomes1 = ['Flávio', 'Rogers', 'Júlia'];
+let listaDeNomes2 = ['Vieira', 'Fernanda', 'Gerson'];
+exibeNoConsole([].concat(listaDeNomes1, listaDeNomes2, 'Rômulo'));
+
+```
+
+
 ## Helpers (Ajudantes)
 Embora o modelo seja 'apenas' MVC (Model, View, Controller), como explanado mais acima quanto a organização de pastas, podemos criar outras classes que irão auxiliar nessa divisão de responsabilidades, facilitando a organização e reutilização de código.
 
 ## Métodos Estáticos (static)
+
+
+
+## Pincelada em Expressões Regulares (RegEsp)
+Temos os seguintes comandos que definem uma função que sabe validar um determinado **código**:
+
+```javascript
+
+let codigo = 'GWZ-JJ-12';
+
+function validaCodigo(codigo) {
+
+    if(/\D{3}-\D{2}-\d{2}/.test(codigo)) {
+          alert('Código válido!');
+      } else {
+          alert('Código inválido');
+      }
+
+}
+
+validaCodigo('GWZ-JJ-12'); // válido
+validaCodigo('1X1-JJ-12'); // inválido
+
+```
+Muita coisa acontecendo? Vamos desmembrar o código para facilitar a leitura:
+
+```javascript
+
+function validaCodigo(codigo) {
+
+    // Duas barras criam a expressão regular. Mas também poderíamos ter usado
+    // a sintaxe new RegExp(/\D{3}-\D{2}-\d{2}/)
+    // \D é qualquer coisa não dígito
+    // \D{3} é qualquer coisa não dígito que forme um grupo de 3 caracteres
+    // \d é qualquer dígito.
+    let expressao = /\D{3}-\D{2}-\d{2}/;
+
+    // toda expressão regular possui o método test
+    // que recebe o alvo do teste, retornando true
+    // se passou, e false se falhou
+    if(expressao.test(codigo)) {
+          alert('Código válido!');
+      } else {
+          alert('Código inválido');
+      }
+
+}
+
+validaCodigo('GWZ-JJ-12'); // válido
+validaCodigo('1X1-JJ-12'); // inválido
+
+```
+O exemplo de solução acima é **procedural**, toda vez que criarmos um código precisaremos buscar em algum lugar do nosso sistema alguém que o valide. Temos uma separação entre dado e comportamento.
+
+Podemos aplicar a **programação orientada a objetos** nesse contexto criando uma ```class``` que representa um código e encapsular a regra de que o código deve ter determinado formato:
+
+```javascript
+
+class Codigo {
+
+    constructor(texto) {
+
+        if(!this._valida(texto)) throw new Error(`O texto ${texto} não é um código válido`);
+        this._texto = texto;        
+    }
+
+    _valida(texto) {
+
+        return /\D{3}-\D{2}-\d{2}/.test(texto);
+    }
+
+    get texto() {
+
+        return this._texto;
+    }
+}
+
+let codigo1 = new Codigo('GWZ-JJ-12'); // válido
+console.log(codigo1.texto);
+let codigo2 = new Codigo('1X1-JJ-12'); // inválido
+console.log(codigo2.texto);
+
+```
+
+Onde quer que tenhamos um código, dado e comportamento caminham juntos, mesmo que esse comportamento/regra esteja no construtor. Aliás, o ```_valida``` está prefixado desta forma porque esse método só deve ser chamado pela própria classe.
+
+## Imediately Invoked Function Expression (IIFE)
+Quando colocamos uma função toda dentro de um parênteses e a chamamos com outros parênteses:
+
+```javascript
+
+(function () {
+	let total = 0;
+	model.negociacoes.forEach(n => total += 	n.volume);
+})();
+//perceba que a função está dentro dos parênteses e com outros parênteses
+
+```
+detalhar melhor essa seção
+
+## Reduce
+A função ```reduce()``` reduz o array a um único valor. Ela executa a função passada como parâmetro para cada item do array, acumulando o valor de retorno da função em um 'total'.
+
+É importante observar que o ```reduce ()``` não executa a função para um array que não possui valores.
+
+```html
+
+<button onclick="myFunction()">Try it</button>
+
+<p>Sum of numbers in array: <span id="demo"></span></p>
+
+<script>
+var numbers = [15.5, 2.3, 1.1, 4.7];
+
+function getSum(total, num) {
+  return total + Math.round(num);
+}
+
+function myFunction(item) {
+  document.getElementById("demo").innerHTML = numbers.reduce(getSum, 0);
+}
+</script>
+
+```
+
+## Resumo com exemplo do Cadu
+
+buscar aquivo .txt na pasta
