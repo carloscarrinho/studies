@@ -428,6 +428,19 @@ function myFunction(item) {
 
 ```
 
+## Herança
+
+* Devemos utilizar a palavra chave ```extends``` depois do nome da classe.
+
+```javascript
+
+class MensagemView extends View {
+	//
+}
+
+```
+
+
 ## Resumo com exemplo do Cadu
 
 buscar aquivo .txt na pasta
